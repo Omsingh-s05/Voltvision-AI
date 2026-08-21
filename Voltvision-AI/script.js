@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+const GEMINI_API_KEY = "AQ.Ab8RN6Le-Hyq8xkB0lcf0vHZWvyqOgg4oKh_GAJ2mQXZkxLCrg";
 
     // 1. Navigation Smooth Scrolling
     document.querySelectorAll("nav a").forEach(link => {
