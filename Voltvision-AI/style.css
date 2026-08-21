@@ -1,0 +1,468 @@
+/* =========================
+   BASIC RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.15), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15), transparent 30%),
+        #070b17;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: auto;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    padding: 18px 5%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(7, 11, 23, 0.75);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    color: #38bdf8;
+
+    text-shadow:
+        0 0 10px rgba(56, 189, 248, 0.6),
+        0 0 25px rgba(56, 189, 248, 0.3);
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav a {
+    position: relative;
+
+    color: #e2e8f0;
+    text-decoration: none;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+nav a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+
+    width: 0;
+    height: 2px;
+
+    background: #38bdf8;
+
+    transition: 0.3s ease;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero {
+    min-height: 85vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    position: relative;
+    padding: 80px 20px;
+}
+
+
+/* Glow behind hero */
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    background: #38bdf8;
+
+    filter: blur(150px);
+    opacity: 0.15;
+
+    z-index: -1;
+}
+
+
+/* =========================
+   HERO TEXT
+========================= */
+
+.hero h1 {
+    font-size: clamp(45px, 7vw, 75px);
+
+    line-height: 1.1;
+
+    margin-bottom: 25px;
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+}
+
+.hero h1 span {
+    color: #38bdf8;
+
+    text-shadow:
+        0 0 15px rgba(56, 189, 248, 0.7),
+        0 0 40px rgba(56, 189, 248, 0.3);
+}
+
+.hero p {
+    max-width: 650px;
+
+    margin: 0 auto 35px;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    color: #94a3b8;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn {
+    display: inline-block;
+
+    padding: 15px 32px;
+
+    background: linear-gradient(
+        135deg,
+        #38bdf8,
+        #6366f1
+    );
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    border-radius: 50px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 8px 25px rgba(56, 189, 248, 0.25);
+
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-4px) scale(1.04);
+
+    box-shadow:
+        0 12px 35px rgba(56, 189, 248, 0.45);
+
+    filter: brightness(1.1);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================
+   CARD CONTAINER
+========================= */
+
+.card-container {
+    display: flex;
+
+    justify-content: center;
+    align-items: stretch;
+
+    gap: 25px;
+
+    flex-wrap: wrap;
+
+    padding: 70px 0;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+    position: relative;
+
+    width: 300px;
+
+    padding: 35px 28px;
+
+    background: rgba(255, 255, 255, 0.055);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 24px;
+
+    text-align: center;
+
+    backdrop-filter: blur(15px);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+}
+
+
+/* Light effect */
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: -80px;
+    left: 50%;
+
+    width: 160px;
+    height: 160px;
+
+    transform: translateX(-50%);
+
+    background: #38bdf8;
+
+    filter: blur(90px);
+
+    opacity: 0.08;
+
+    transition: 0.4s ease;
+}
+
+.card:hover::before {
+    opacity: 0.2;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+
+    border-color: rgba(56, 189, 248, 0.45);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 0 25px rgba(56, 189, 248, 0.12);
+}
+
+
+/* =========================
+   CARD TITLE
+========================= */
+
+.card h2 {
+    margin-bottom: 15px;
+
+    font-size: 24px;
+
+    color: #38bdf8;
+}
+
+
+/* =========================
+   CARD TEXT
+========================= */
+
+.card p {
+    color: #94a3b8;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    margin-top: 50px;
+
+    padding: 30px 20px;
+
+    text-align: center;
+
+    color: #64748b;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #070b17;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #38bdf8;
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 15px 20px;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 25px;
+    }
+
+    nav {
+        gap: 18px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .hero {
+        min-height: 75vh;
+
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .card-container {
+        padding: 40px 10px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 400px) {
+
+    nav {
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .btn {
+        padding: 13px 25px;
+    }
+}
