@@ -3,127 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VoltVision AI - Circuit Analyzer</title>
+    <title>VoltVision AI</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: #1e293b;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
-
-        h1 {
-            color: #38bdf8;
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-
-        .upload-section {
-            border: 2px dashed #475569;
-            padding: 25px;
-            border-radius: 12px;
-            background-color: #0f172a;
-            margin-bottom: 20px;
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-
-        .custom-file-upload {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #3b82f6;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .custom-file-upload:hover {
-            background-color: #2563eb;
-        }
-
-        #imagePreview {
-            max-width: 100%;
-            max-height: 250px;
-            margin-top: 15px;
-            border-radius: 8px;
-            display: none;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn-analyze {
-            width: 100%;
-            padding: 14px;
-            background-color: #10b981;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-analyze:hover {
-            background-color: #059669;
-        }
-
-        .result-box {
-            margin-top: 25px;
-            padding: 20px;
-            background-color: #0f172a;
-            border-radius: 8px;
-            text-align: left;
-            border-left: 4px solid #38bdf8;
-            min-height: 80px;
-            line-height: 1.6;
-            color: #cbd5e1;
-        }
+        body { font-family: Arial, sans-serif; background: #0f172a; color: white; text-align: center; padding: 20px; }
+        .box { max-width: 500px; margin: auto; background: #1e293b; padding: 20px; border-radius: 10px; }
+        input[type="file"] { margin: 15px 0; background: #334155; padding: 10px; border-radius: 5px; color: white; width: 90%; }
+        #imagePreview { max-width: 100%; height: auto; border-radius: 8px; margin: 15px 0; display: none; }
+        button { background: #10b981; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; }
+        #result { margin-top: 20px; text-align: left; background: #0f172a; padding: 15px; border-radius: 5px; min-height: 50px; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>⚡ VoltVision AI</h1>
+    <div class="box">
+        <h2>⚡ VoltVision AI</h2>
+        <p>Select a circuit image to analyze</p>
         
-        <div class="upload-section">
-            <label for="imageInput" class="custom-file-upload">
-                📷 Choose Circuit Image
-            </label>
-            <input type="file" id="imageInput" accept="image/*">
-            <br>
-            <img id="imagePreview" alt="Selected Preview">
-        </div>
-
-        <button id="analyzeBtn" class="btn-analyze">🔎 Analyze Circuit</button>
-
-        <div id="result" class="result-box">
-            Upload an image and click 'Analyze Circuit' to view detailed component results.
-        </div>
+        <input type="file" id="imageInput" accept="image/*">
+        
+        <img id="imagePreview" alt="Preview Image">
+        
+        <button id="analyzeBtn">Analyze Circuit</button>
+        
+        <div id="result">Results will appear here...</div>
     </div>
 
     <script src="script.js"></script>
