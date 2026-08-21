@@ -1,44 +1,55 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const imageInput = document.getElementById("imageInput");
+    const imagePreview = document.getElementById("imagePreview");
+    const analyzeButton = document.getElementById("analyzeButton");
 
-    // Smooth scrolling
-    document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", function (e) {
-            const target = document.querySelector(this.getAttribute("href"));
+    const components = document.getElementById("components");
+    const connections = document.getElementById("connections");
+    const errors = document.getElementById("errors");
+    const corrections = document.getElementById("corrections");
 
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({
-                    behavior: "smooth"
-                });
-            }
-        });
+    let isImageUploaded = false;
+
+    // 1. Image Upload Check & Preview Show Karna
+    imageInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                imagePreview.innerHTML = `
+                    <p style="color: #10b981; font-weight: bold; margin-top: 10px;">
+                        ✅ Image Successfully Uploaded!
+                    </p>
+                    <img src="${e.target.result}" alt="Uploaded Circuit" style="max-width: 100%; max-height: 250px; border-radius: 8px; margin-top: 10px; border: 1px solid #38bdf8;">
+                `;
+                isImageUploaded = true;
+            };
+
+            reader.readAsDataURL(file);
+        }
     });
 
-    // Button animation
-    const buttons = document.querySelectorAll(".btn");
+    // 2. Analyze Button Click Handler
+    analyzeButton.addEventListener("click", () => {
+        if (!isImageUploaded) {
+            alert("Kripya pehle circuit ki image upload karein!");
+            return;
+        }
 
-    buttons.forEach(button => {
-        button.addEventListener("click", () => {
-            button.style.transform = "scale(0.95)";
+        // Loading State Show Karna
+        components.innerText = "Analyzing circuit components...";
+        connections.innerText = "Checking pin connections...";
+        errors.innerText = "Scanning for potential short circuits/errors...";
+        corrections.innerText = "Generating recommendations...";
 
-            setTimeout(() => {
-                button.style.transform = "scale(1)";
-            }, 150);
-        });
-    });
-
-    // Card animation
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach((card, index) => {
-        card.style.opacity = "0";
-        card.style.transform = "translateY(30px)";
-
+        // Simulated Analysis Output (Demo Data)
         setTimeout(() => {
-            card.style.transition = "0.6s ease";
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
-        }, index * 200);
+            components.innerText = "1x Arduino Uno, 1x LED, 1x 220 Ohm Resistor, Breadboard, Jumper Wires.";
+            connections.innerText = "LED Anode -> Pin 13, LED Cathode -> Resistor -> GND.";
+            errors.innerText = "No critical error detected. Wiring appears correct.";
+            corrections.innerText = "Ensure all jumper wires are firmly connected into the breadboard slots.";
+        }, 1500);
     });
-
 });
