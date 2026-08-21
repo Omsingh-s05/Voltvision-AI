@@ -1,4 +1,4 @@
-const GEMINI_API_KEY = "AQ.Ab8RN6Jxlb33K0vfzdQ1F7umA-t9cvXleyVTHBW4hJeMR_69xQ";
+const GEMINI_API_KEY = "AIzaSy_yahan_nayi_key_paste_karein";
 
 const imageInput = document.getElementById("imageInput");
 const analyzeBtn = document.getElementById("analyzeBtn");
