@@ -1,76 +1,89 @@
+// 1. API Key Setup
 const GEMINI_API_KEY = "AQ.Ab8RN6Le-Hyq8xkB0lcf0vHZWvyqOgg4oKh_GAJ2mQXZkxLCrg";
 
-    // 1. Navigation Smooth Scrolling
-    document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", function (e) {
-            const target = document.querySelector(this.getAttribute("href"));
+// 2. DOM Elements
+const imageInput = document.getElementById("imageInput");
+const analyzeBtn = document.getElementById("analyzeBtn");
+const imagePreview = document.getElementById("imagePreview");
+const resultDiv = document.getElementById("result");
 
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({
-                    behavior: "smooth"
-                });
-            }
-        });
-    });
+let base64Image = "";
 
-    // 2. Elements Selection
-    const imageInput = document.getElementById("imageInput");
-    const imagePreview = document.getElementById("imagePreview");
-    const analyzeButton = document.getElementById("analyzeButton");
+// 3. Image Selection & Preview
+imageInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            imagePreview.src = event.target.result;
+            imagePreview.style.display = "block";
+            
+            // Base64 string extract karna
+            base64Image = event.target.result.split(",")[1];
+        };
+        reader.readAsDataURL(file);
+    }
+});
 
-    const components = document.getElementById("components");
-    const connections = document.getElementById("connections");
-    const errors = document.getElementById("errors");
-    const corrections = document.getElementById("corrections");
-
-    let isImageUploaded = false;
-
-    // 3. Image Upload and Preview Logic
-    if (imageInput) {
-        imageInput.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                
-                reader.onload = (e) => {
-                    imagePreview.innerHTML = `
-                        <p style="color: #10b981; font-weight: bold; margin-top: 15px;">
-                            ✅ Image Successfully Uploaded!
-                        </p>
-                        <img src="${e.target.result}" alt="Uploaded Circuit" style="max-width: 100%; max-height: 250px; border-radius: 8px; margin-top: 10px; border: 1px solid #38bdf8;">
-                    `;
-                    isImageUploaded = true;
-                };
-
-                reader.readAsDataURL(file);
-            }
-        });
+// 4. Gemini API Call
+analyzeBtn.addEventListener("click", async () => {
+    if (!base64Image) {
+        alert("Pehle koi image upload karein!");
+        return;
     }
 
-    // 4. Analyze Button Click Logic
-    if (analyzeButton) {
-        analyzeButton.addEventListener("click", () => {
-            if (!isImageUploaded) {
-                alert("Kripya pehle circuit ki image upload karein!");
-                return;
+    resultDiv.innerHTML = "🔍 Image analyze ho rahi hai... Kripya wait karein.";
+
+    const promptText = `
+    Analyze this image carefully.
+    1. First, check if the image shows an electronic circuit, PCB, schematic, or electrical diagram.
+    2. If it is NOT an electronic circuit (e.g., cartoon, human, animal, scenery, anime character like Pikachu, etc.), strictly output ONLY:
+       "❌ This is not an electronic circuit image. Please upload a valid circuit or PCB photo."
+    3. If it IS a valid electronic circuit, identify the visible components (e.g., Resistor, Capacitor, IC, LED, Transistor, etc.) and list them neatly with a brief description of their functions.
+    `;
+
+    const requestData = {
+        contents: [
+            {
+                parts: [
+                    { text: promptText },
+                    {
+                        inline_data: {
+                            mime_type: "image/jpeg",
+                            data: base64Image
+                        }
+                    }
+                ]
             }
+        ]
+    };
 
-            // Status Updating
-            components.innerText = "Analyzing circuit components...";
-            connections.innerText = "Checking pin connections...";
-            errors.innerText = "Scanning for potential short circuits/errors...";
-            corrections.innerText = "Generating recommendations...";
+    try {
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            }
+        );
 
-            // Simulated AI Analysis Output
-            setTimeout(() => {
-                components.innerText = "1x Arduino Uno, 1x Red LED, 1x 220Ω Resistor, Breadboard, Jumper Wires.";
-                connections.innerText = "LED Anode -> Pin 13, LED Cathode -> Resistor -> GND.";
-                errors.innerText = "No critical errors detected. Circuit configuration looks good.";
-                corrections.innerText = "Ensure all components are securely seated in the breadboard slots.";
-            }, 1500);
-        });
+        const data = await response.json();
+
+        if (data.error) {
+            resultDiv.innerHTML = `<span style="color:red;">Error: ${data.error.message}</span>`;
+            return;
+        }
+
+        const aiResponse = data.candidates[0].content.parts[0].text;
+        
+        // Output formatting
+        resultDiv.innerHTML = aiResponse.replace(/\n/g, "<br>").replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+
+    } catch (error) {
+        console.error(error);
+        resultDiv.innerHTML = `<span style="color:red;">Server connection error! Apne internet check karein.</span>`;
     }
-
 });
