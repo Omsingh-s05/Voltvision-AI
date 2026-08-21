@@ -1,7 +1,5 @@
-// 1. New API Key
 const GEMINI_API_KEY = "AQ.Ab8RN6Jxlb33K0vfzdQ1F7umA-t9cvXleyVTHBW4hJeMR_69xQ";
 
-// 2. DOM Elements
 const imageInput = document.getElementById("imageInput");
 const analyzeBtn = document.getElementById("analyzeBtn");
 const imagePreview = document.getElementById("imagePreview");
@@ -10,7 +8,7 @@ const resultDiv = document.getElementById("result");
 let base64Image = "";
 let fileMimeType = "image/jpeg";
 
-// 3. Image Selection & Preview Handler
+// 1. Image Preview & Reader
 if (imageInput) {
     imageInput.addEventListener("change", function(e) {
         const file = e.target.files[0];
@@ -27,7 +25,7 @@ if (imageInput) {
                 base64Image = event.target.result.split(",")[1];
                 
                 if (resultDiv) {
-                    resultDiv.innerHTML = "✅ Photo ready! Click 'Analyze Circuit'.";
+                    resultDiv.innerHTML = "✅ Photo uploaded successfully! Click 'Analyze Circuit & Fix Code' button below.";
                 }
             };
 
@@ -36,28 +34,28 @@ if (imageInput) {
     });
 }
 
-// 4. API Request & Circuit / Code Analysis
+// 2. Gemini Analysis Request
 if (analyzeBtn) {
     analyzeBtn.addEventListener("click", async () => {
         if (!base64Image) {
-            alert("Pehle koi image select karein!");
+            alert("Pehle koi circuit image upload karein!");
             return;
         }
 
         if (resultDiv) {
-            resultDiv.innerHTML = "🔍 Circuit analyze aur code verify ho raha hai... Please wait.";
+            resultDiv.innerHTML = "🔍 <b>Scanning circuit components, checking connections & generating rectified code... Please wait...</b>";
         }
 
         const promptText = `
-        You are an expert embedded systems and electronic circuit engineer. Analyze this image carefully:
+        You are an expert hardware engineer and microcontroller developer. Perform a detailed analysis of this image:
 
-        1. Check if the image shows an electronic circuit, PCB, schematic, or electrical diagram.
-        2. If it is NOT an electronic circuit (e.g. anime, human, random object), strictly output ONLY:
-           "❌ This is not an electronic circuit image. Please upload a valid circuit or PCB photo."
+        1. Check if the image contains an electronic circuit, PCB, microcontroller setup (Arduino/ESP32/Raspberry Pi), or electrical schematic.
+        2. If it is NOT an electronic circuit, output ONLY:
+           "❌ Invalid Image: This does not appear to be an electronic circuit or PCB diagram. Please upload a clear photo of your circuit setup."
         3. If IT IS a valid circuit:
-           - List all visible components (e.g., Microcontroller, Resistors, LEDs, Sensors).
-           - Identify any wiring errors, missing connections, or pinout mistakes.
-           - Provide the corrected, working code (Arduino C++, ESP32, or Python/Raspberry Pi) for this setup.
+           - **Identified Components**: List all visible components (sensors, resistors, LEDs, microcontrollers, modules).
+           - **Connection & Wiring Analysis**: Identify pin connections and point out any missing components, short circuits, or pinout mistakes.
+           - **Code Rectification & Generation**: Provide complete, corrected, ready-to-run code (Arduino C++ or Python) tailored precisely to the visible components and wiring in the image. Include helpful code comments.
         `;
 
         try {
@@ -81,7 +79,7 @@ if (analyzeBtn) {
 
             if (data.error) {
                 if (resultDiv) {
-                    resultDiv.innerHTML = `<span style="color:red;">API Error: ${data.error.message}</span>`;
+                    resultDiv.innerHTML = `<b style="color:#ef4444;">API Error: ${data.error.message}</b>`;
                 }
                 return;
             }
@@ -92,13 +90,13 @@ if (analyzeBtn) {
                     resultDiv.innerHTML = text
                         .replace(/\n/g, "<br>")
                         .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-                        .replace(/```(.*?)```/gs, "<pre style='background:#334155; padding:12px; color:#38bdf8; border-radius:6px; overflow-x:auto;'><code>$1</code></pre>");
+                        .replace(/```(.*?)```/gs, "<pre><code>$1</code></pre>");
                 }
             }
         } catch (err) {
             console.error(err);
             if (resultDiv) {
-                resultDiv.innerHTML = `<span style="color:red;">Connection Error! Check internet connection.</span>`;
+                resultDiv.innerHTML = `<b style="color:#ef4444;">Network Error! Check your internet connection or browser console for details.</b>`;
             }
         }
     });
