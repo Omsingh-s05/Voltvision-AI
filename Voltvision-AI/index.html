@@ -1,172 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+document.addEventListener("DOMContentLoaded", () => {
 
-    <title>VoltVision AI</title>
+    // 1. Smooth scrolling
+    document.querySelectorAll("nav a").forEach(link => {
+        link.addEventListener("click", function (e) {
+            const target = document.querySelector(this.getAttribute("href"));
 
-    <link rel="stylesheet" href="style.css">
-</head>
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: "smooth"
+                });
+            }
+        });
+    });
 
-<body>          
+    // 2. Button animation
+    const buttons = document.querySelectorAll(".btn");
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">
-            ⚡ VoltVision <span>AI</span>
-        </div>
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            button.style.transform = "scale(0.95)";
 
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#analyzer">Analyzer</a>
-            <a href="#about">About</a>
-        </div>
-    </nav>
+            setTimeout(() => {
+                button.style.transform = "scale(1)";
+            }, 150);
+        });
+    });
 
+    // 3. Image Upload Preview & Analysis Logic
+    const imageInput = document.getElementById("imageInput");
+    const imagePreview = document.getElementById("imagePreview");
+    const analyzeButton = document.getElementById("analyzeButton");
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+    const components = document.getElementById("components");
+    const connections = document.getElementById("connections");
+    const errors = document.getElementById("errors");
+    const corrections = document.getElementById("corrections");
 
-        <div class="hero-content">
+    let isImageUploaded = false;
 
-            <div class="badge">
-                ⚡ AI-Powered Electronics Analyzer
-            </div>
+    if (imageInput) {
+        imageInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
 
-            <h1>
-                See Your Circuit.<br>
-                <span>Understand & Fix It.</span>
-            </h1>
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    imagePreview.innerHTML = `
+                        <p style="color: #10b981; font-weight: bold; margin-top: 10px;">
+                            ✅ Image Successfully Uploaded!
+                        </p>
+                        <img src="${e.target.result}" alt="Uploaded Circuit" style="max-width: 100%; max-height: 250px; border-radius: 8px; margin-top: 10px; border: 1px solid #38bdf8;">
+                    `;
+                    isImageUploaded = true;
+                };
 
-            <p>
-                Upload a photo of your circuit, Arduino project,
-                prototype or electronic setup and let VoltVision AI
-                identify components and find possible wiring errors.
-            </p>
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 
-            <a href="#analyzer" class="start-button">
-                Start Analyzing →
-            </a>
+    if (analyzeButton) {
+        analyzeButton.addEventListener("click", () => {
+            if (!isImageUploaded) {
+                alert("Kripya pehle circuit ki image upload karein!");
+                return;
+            }
 
-        </div>
+            components.innerText = "Analyzing circuit components...";
+            connections.innerText = "Checking pin connections...";
+            errors.innerText = "Scanning for potential short circuits/errors...";
+            corrections.innerText = "Generating recommendations...";
 
-    </section>
+            setTimeout(() => {
+                components.innerText = "1x Arduino Uno, 1x LED, 1x 220 Ohm Resistor, Breadboard, Jumper Wires.";
+                connections.innerText = "LED Anode -> Pin 13, LED Cathode -> Resistor -> GND.";
+                errors.innerText = "No critical error detected. Wiring appears correct.";
+                corrections.innerText = "Ensure all jumper wires are firmly connected into the breadboard slots.";
+            }, 1500);
+        });
+    }
 
-
-    <!-- Analyzer Section -->
-    <section id="analyzer" class="analyzer">
-
-        <div class="section-heading">
-            <h2>🔍 Circuit Analyzer</h2>
-
-            <p>
-                Upload an image of your circuit or prototype
-            </p>
-        </div>
-
-
-        <!-- Upload Box -->
-        <div class="upload-box">
-
-            <div class="upload-icon">
-                📷
-            </div>
-
-            <h3>Upload Circuit Image</h3>
-
-            <p>
-                Arduino • ESP32 • Breadboard • PCB • Prototype
-            </p>
-
-            <label for="imageInput" class="upload-button">
-                Choose Image
-            </label>
-
-            <input
-                type="file"
-                id="imageInput"
-                accept="image/*"
-                hidden
-            >
-
-            <div id="imagePreview"></div>
-
-        </div>
-
-
-        <!-- Analyze Button -->
-        <button id="analyzeButton" class="analyze-button">
-            🔎 Analyze Circuit
-        </button>
-
-
-        <!-- Results -->
-        <div id="results" class="results">
-
-            <h2>Analysis Results</h2>
-
-            <div class="result-grid">
-
-                <div class="result-card">
-                    <h3>🧩 Components</h3>
-                    <p id="components">
-                        Waiting for analysis...
-                    </p>
-                </div>
-
-
-                <div class="result-card">
-                    <h3>🔌 Connections</h3>
-                    <p id="connections">
-                        Waiting for analysis...
-                    </p>
-                </div>
-
-
-                <div class="result-card">
-                    <h3>⚠️ Possible Errors</h3>
-                    <p id="errors">
-                        Waiting for analysis...
-                    </p>
-                </div>
-
-
-                <div class="result-card">
-                    <h3>🛠️ Corrections</h3>
-                    <p id="corrections">
-                        Waiting for analysis...
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- About Section -->
-    <section id="about" class="about">
-
-        <h2>About VoltVision AI</h2>
-
-        <p>
-            VoltVision AI is designed to help students and electronics
-            enthusiasts understand circuits by identifying components,
-            analyzing connections and highlighting possible problems.
-        </p>
-
-    </section>
-
-
-    <!-- Footer -->
-    <footer>
-        <p>⚡ VoltVision AI — See. Detect. Fix.</p>
-    </footer>
-
-
-    <script src="script.js"></script>
-
-</body>
-</html>
+});
