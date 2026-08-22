@@ -3,87 +3,499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>VoltVision AI</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<nav>
-    <div class="logo">⚡ VoltVision<span>AI</span></div>
+<!-- ================= NAVBAR ================= -->
 
-    <div class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="circuits.html">Circuit Lab</a>
-        <a href="learn.html">Learn</a>
+<header class="navbar">
+
+    <div class="logo">
+        <span>⚡</span> VoltVision<span class="green">AI</span>
     </div>
-</nav>
 
-<main class="hero">
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#assistant">AI Helper</a>
+        <a href="#circuits">Circuit Lab</a>
+        <a href="#learn">Learn</a>
+    </nav>
 
-    <section class="hero-text">
-        <div class="badge">⚡ AI ELECTRONICS HELPER</div>
+    <a href="#circuits" class="nav-button">
+        Start Exploring →
+    </a>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section id="home" class="hero">
+
+    <div class="hero-content">
+
+        <div class="tag">
+            ⚡ AI POWERED ELECTRONICS
+        </div>
 
         <h1>
-            Explore Electronics<br>
-            <span>Smarter.</span>
+            Understand
+            <span>Electronics.</span>
+            <br>
+            Build Your Future.
         </h1>
 
         <p>
-            Learn circuits, understand components and explore
-            electronics with a simple AI-powered interface.
+            VoltVision AI is your beginner-friendly electronics
+            companion. Explore circuits, understand components
+            and learn electronics in a simple way.
         </p>
 
-        <div class="buttons">
-            <a href="circuits.html" class="primary-btn">
+        <div class="hero-buttons">
+
+            <a href="#circuits" class="main-button">
                 🔌 Explore Circuits
             </a>
 
-            <a href="learn.html" class="secondary-btn">
+            <a href="#learn" class="outline-button">
                 📚 Start Learning
             </a>
-        </div>
-    </section>
 
-    <section class="dashboard-card">
-
-        <div class="card-top">
-            <span>AI STATUS</span>
-            <span class="online">● ONLINE</span>
         </div>
 
-        <div class="ai-icon">⚡</div>
+        <div class="mini-stats">
 
-        <h2>VoltVision Assistant</h2>
-
-        <p>
-            Your beginner-friendly electronics companion.
-        </p>
-
-        <div class="stats">
             <div>
                 <strong>∞</strong>
-                <small>Ideas</small>
+                <span>Possibilities</span>
             </div>
 
             <div>
                 <strong>24/7</strong>
-                <small>Learning</small>
+                <span>Learning</span>
             </div>
 
             <div>
                 <strong>AI</strong>
-                <small>Powered</small>
+                <span>Assistance</span>
             </div>
+
         </div>
 
-    </section>
+    </div>
 
-</main>
+
+    <!-- HERO VISUAL -->
+
+    <div class="hero-visual">
+
+        <div class="glow"></div>
+
+        <div class="ai-card">
+
+            <div class="card-header">
+                <span>VOLT·VISION AI</span>
+                <span class="online">● ONLINE</span>
+            </div>
+
+            <div class="chip">
+                ⚡
+            </div>
+
+            <h2>
+                Electronics<br>
+                Made Simple.
+            </h2>
+
+            <p>
+                Ask. Explore. Learn.
+            </p>
+
+            <div class="wave"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI HELPER ================= -->
+
+<section id="assistant" class="section">
+
+    <div class="section-heading">
+
+        <div class="tag">
+            🤖 AI ASSISTANT
+        </div>
+
+        <h2>
+            Your Electronics
+            <span>Helper.</span>
+        </h2>
+
+        <p>
+            Ask questions about basic electronics and get
+            beginner-friendly explanations.
+        </p>
+
+    </div>
+
+
+    <div class="assistant-box">
+
+        <div class="assistant-top">
+
+            <div class="assistant-icon">
+                ⚡
+            </div>
+
+            <div>
+                <h3>VoltVision Assistant</h3>
+                <p>Ready to help you learn.</p>
+            </div>
+
+            <span class="status">
+                ● READY
+            </span>
+
+        </div>
+
+
+        <div class="chat-area" id="chatArea">
+
+            <div class="bot-message">
+                👋 Hi! I'm VoltVision AI.
+                <br>
+                Ask me something about electronics!
+            </div>
+
+        </div>
+
+
+        <div class="chat-input">
+
+            <input
+                type="text"
+                id="question"
+                placeholder="Ask something... e.g. What is voltage?"
+            >
+
+            <button onclick="askAI()">
+                Send ⚡
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CIRCUIT LAB ================= -->
+
+<section id="circuits" class="section circuit-section">
+
+    <div class="section-heading">
+
+        <div class="tag">
+            🔌 CIRCUIT LAB
+        </div>
+
+        <h2>
+            Explore
+            <span>Circuits.</span>
+        </h2>
+
+        <p>
+            Enter a circuit name and explore its basic
+            information and diagram.
+        </p>
+
+    </div>
+
+
+    <div class="circuit-search">
+
+        <div class="search-icon">
+            🔍
+        </div>
+
+        <input
+            id="circuitInput"
+            type="text"
+            placeholder="Try: LED circuit, series circuit, parallel circuit..."
+        >
+
+        <button onclick="searchCircuit()">
+            Find Circuit
+        </button>
+
+    </div>
+
+
+    <div id="circuitResult" class="circuit-result">
+
+        <div class="circuit-info">
+
+            <div class="big-icon">
+                🔋
+            </div>
+
+            <div>
+
+                <span class="small-title">
+                    CIRCUIT INFORMATION
+                </span>
+
+                <h3 id="circuitTitle">
+                    Start Exploring
+                </h3>
+
+                <p id="circuitInfo">
+                    Search for a circuit above to see
+                    information and a basic diagram.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="diagram-box">
+
+            <div class="diagram-icon">
+                🔌
+            </div>
+
+            <h3>Basic Circuit Diagram</h3>
+
+            <p id="diagramText">
+                Your circuit diagram will appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= COMPONENTS ================= -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div class="tag">
+            🧩 COMPONENTS
+        </div>
+
+        <h2>
+            Know Your
+            <span>Components.</span>
+        </h2>
+
+    </div>
+
+
+    <div class="component-grid">
+
+        <div class="component-card">
+
+            <div class="component-icon">🔋</div>
+
+            <h3>Battery</h3>
+
+            <p>
+                Provides electrical energy to a circuit.
+            </p>
+
+        </div>
+
+
+        <div class="component-card">
+
+            <div class="component-icon">🧱</div>
+
+            <h3>Resistor</h3>
+
+            <p>
+                Limits and controls current flow.
+            </p>
+
+        </div>
+
+
+        <div class="component-card">
+
+            <div class="component-icon">💡</div>
+
+            <h3>LED</h3>
+
+            <p>
+                Produces light when current flows through it.
+            </p>
+
+        </div>
+
+
+        <div class="component-card">
+
+            <div class="component-icon">🔘</div>
+
+            <h3>Switch</h3>
+
+            <p>
+                Opens or closes an electrical circuit.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LEARN ================= -->
+
+<section id="learn" class="section">
+
+    <div class="section-heading">
+
+        <div class="tag">
+            📚 LEARNING HUB
+        </div>
+
+        <h2>
+            Learn Electronics
+            <span>Simply.</span>
+        </h2>
+
+    </div>
+
+
+    <div class="learning-grid">
+
+        <div class="learning-card">
+
+            <span>01</span>
+
+            <h3>Voltage</h3>
+
+            <p>
+                Voltage is the potential difference that
+                pushes electric charge through a circuit.
+            </p>
+
+        </div>
+
+
+        <div class="learning-card">
+
+            <span>02</span>
+
+            <h3>Current</h3>
+
+            <p>
+                Current is the flow of electric charge
+                through a conductor.
+            </p>
+
+        </div>
+
+
+        <div class="learning-card">
+
+            <span>03</span>
+
+            <h3>Resistance</h3>
+
+            <p>
+                Resistance opposes the flow of electric
+                current.
+            </p>
+
+        </div>
+
+
+        <div class="learning-card">
+
+            <span>04</span>
+
+            <h3>Ohm's Law</h3>
+
+            <p>
+                Ohm's Law connects voltage, current and
+                resistance: V = IR.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about">
+
+    <div class="about-content">
+
+        <div class="tag">
+            ⚡ ABOUT VOLTVISION
+        </div>
+
+        <h2>
+            Technology should be
+            <span>simple.</span>
+        </h2>
+
+        <p>
+            VoltVision AI is a Class 11 project designed to
+            combine web development, electronics education
+            and artificial intelligence into one simple platform.
+        </p>
+
+        <div class="tech-list">
+
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Node.js</span>
+            <span>Express</span>
+            <span>API</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
-    VoltVision-AI Helper • Class 11 Project
+
+    <div class="logo">
+        ⚡ VoltVision<span class="green">AI</span>
+    </div>
+
+    <p>
+        Class 11 Technology Project • Built with curiosity 💚
+    </p>
+
 </footer>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
