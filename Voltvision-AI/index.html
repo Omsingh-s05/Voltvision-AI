@@ -3,46 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VoltVision AI - Circuit Analyzer</title>
+    <title>VoltVision AI</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <header class="navbar">
-        <div class="logo">⚡ VoltVision AI</div>
-        <nav>
-            <a href="#analyzer">Analyzer</a>
-            <a href="#about">About</a>
-        </nav>
-    </header>
+<nav>
+    <div class="logo">⚡ VoltVision<span>AI</span></div>
 
-    <main class="main-container">
-        <section id="analyzer" class="analyzer-card">
-            <h2>Upload Circuit Image</h2>
-            <p class="subtitle">Arduino • ESP32 • Breadboard • PCB • Prototype</p>
+    <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="circuits.html">Circuit Lab</a>
+        <a href="learn.html">Learn</a>
+    </div>
+</nav>
 
-            <div class="upload-area">
-                <input type="file" id="imageInput" accept="image/*">
-                <label for="imageInput" class="upload-label">
-                    📷 Choose Image
-                </label>
+<main class="hero">
+
+    <section class="hero-text">
+        <div class="badge">⚡ AI ELECTRONICS HELPER</div>
+
+        <h1>
+            Explore Electronics<br>
+            <span>Smarter.</span>
+        </h1>
+
+        <p>
+            Learn circuits, understand components and explore
+            electronics with a simple AI-powered interface.
+        </p>
+
+        <div class="buttons">
+            <a href="circuits.html" class="primary-btn">
+                🔌 Explore Circuits
+            </a>
+
+            <a href="learn.html" class="secondary-btn">
+                📚 Start Learning
+            </a>
+        </div>
+    </section>
+
+    <section class="dashboard-card">
+
+        <div class="card-top">
+            <span>AI STATUS</span>
+            <span class="online">● ONLINE</span>
+        </div>
+
+        <div class="ai-icon">⚡</div>
+
+        <h2>VoltVision Assistant</h2>
+
+        <p>
+            Your beginner-friendly electronics companion.
+        </p>
+
+        <div class="stats">
+            <div>
+                <strong>∞</strong>
+                <small>Ideas</small>
             </div>
 
-            <div class="preview-container">
-                <img id="imagePreview" alt="Circuit Preview">
+            <div>
+                <strong>24/7</strong>
+                <small>Learning</small>
             </div>
 
-            <button id="analyzeBtn" class="btn-submit">🔎 Analyze Circuit & Fix Code</button>
-        </section>
-
-        <section class="results-container">
-            <h3>Analysis Results</h3>
-            <div id="result" class="result-box">
-                Upload an image and click 'Analyze Circuit' to get detailed component detection, connection checks, error fixes, and code generation.
+            <div>
+                <strong>AI</strong>
+                <small>Powered</small>
             </div>
-        </section>
-    </main>
+        </div>
 
-    <script src="script.js"></script>
+    </section>
+
+</main>
+
+<footer>
+    VoltVision-AI Helper • Class 11 Project
+</footer>
+
 </body>
 </html>
